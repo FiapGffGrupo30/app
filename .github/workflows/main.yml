@@ -39,9 +39,14 @@ jobs:
 
     - name: Build and Push Docker image to Amazon ECR
       run: |
-        docker build -t gff-container:${{ github.sha }} .
-        docker tag gff-container:${{ github.sha }} ${{ steps.login-ecr.outputs.registry }}/gff-container:${{ github.sha }}
-        docker push ${{ steps.login-ecr.outputs.registry }}/gff-container:${{ github.sha }}
+        ECR_REGISTRY=571192913109.dkr.ecr.$AWS_REGION.amazonaws.com
+        ECR_REPOSITORY=gff-container
+        IMAGE_TAG=${GITHUB_SHA}
+
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
 
   deploy:
     needs: build
