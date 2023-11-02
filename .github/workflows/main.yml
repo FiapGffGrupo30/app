@@ -28,7 +28,7 @@ jobs:
       run: mvn clean package -D maven.test.skip=true
 
     - name: Login to Amazon ECR
-       id: login-ecr
+      id: login-ecr
       env:
         AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
       uses: aws-actions/amazon-ecr-login@v1
