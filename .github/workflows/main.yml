@@ -30,6 +30,9 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+        region: ${{ env.AWS_REGION }}
+        mask-password: false
 
     - name: Build and Push Docker image to Amazon ECR
       run: |
@@ -63,4 +66,4 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-        kubectl set image deployment/gff-deployment gff-container=${{ steps.login-ecr.outputs.registry }}/gff-container:${{ github.sha }} --record
+        kubectl set image k8s/gff-deployment gff-container=${{ steps.login-ecr.outputs.registry }}/gff-container:${{ github.sha }} --record
