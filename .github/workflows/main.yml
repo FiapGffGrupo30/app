@@ -44,7 +44,6 @@ jobs:
 
     - name: Build and Push Docker image to Amazon ECR
       run: |
-#        ECR_REGISTRY=571192913109.dkr.ecr.$AWS_REGION.amazonaws.com
         ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY=gff-container
         IMAGE_TAG=latest
