@@ -3,9 +3,6 @@ name: Java CI/CD to AWS EKS
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'k8s/**'
-      - 'src/**'
 
 jobs:
   build:
@@ -66,14 +63,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Install kubectl
+    - name: Set up Kubectl
       run: |
-        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
+        mv ./kubectl /usr/local/bin/kubectl
 
-    - name: Apply Kubernetes deployment
+    - name: Download EKS kubeconfig
+      run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+    - name: Deploy to EKS
       run: |
-        kubectl apply -f k8s/deployment.yaml
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        kubectl set image deployment/gff-deployment gff-container=${{ steps.login-ecr.outputs.registry }}/gff-container:${{ github.sha }}
