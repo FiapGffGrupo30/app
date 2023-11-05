@@ -43,19 +43,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Get the registry ID
+    - name: Build and Push Docker image to Amazon ECR
       run: |
-        echo "${{ steps.login-ecr.outputs }}"
+        ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY=gff-container
+        IMAGE_TAG=latest
 
-#    - name: Build and Push Docker image to Amazon ECR
-#      run: |
-#        ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}
-#        ECR_REPOSITORY=gff-container
-#        IMAGE_TAG=latest
-#
-#        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-#        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-#        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 # deploy:
 #    needs: build
