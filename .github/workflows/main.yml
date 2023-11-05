@@ -68,10 +68,10 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Create kubeconfig
-    run: |
-      mkdir ${HOME}/.kube
-      echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
-      cat ${HOME}/.kube/config
+      run: |
+        mkdir ${HOME}/.kube
+        echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
+        cat ${HOME}/.kube/config
 
     - name: Apply Kubernetes deployment
       run: |
