@@ -78,10 +78,10 @@ jobs:
         mkdir ${HOME}/.kube
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ${HOME}/.kube/config
         cat ${HOME}/.kube/config
-#
+
 #    - name: Use context
 #      run: kubectl config use-context soat2-grupo-30-cluster-gff
 
-#    - name: Apply Kubernetes deployment
-#      run: |
-#        kubectl apply -f k8s/gff-deployment.yaml
+    - name: Apply Kubernetes deployment
+      run: |
+        kubectl apply -f k8s/gff-deployment.yaml
