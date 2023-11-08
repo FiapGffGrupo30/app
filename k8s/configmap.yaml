@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mongodb-configmap
 data: 
-  database_url: docdb-2023-11-07-23-26-24.cluster-csbecpqncuzk.us-east-2.docdb.amazonaws.com
+  database_url: gff-mongodb-571192913109.us-east-1.docdb-elastic.amazonaws.com
