@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mongodb-configmap
 data: 
-  database_url: mongodb://fiapfood:fiapfood2023@docdb-2023-11-07-23-26-24.cluster-csbecpqncuzk.us-east-2.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+  database_url: docdb-2023-11-07-23-26-24.cluster-csbecpqncuzk.us-east-2.docdb.amazonaws.com
