@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: mongodb-configmap
 data: 
-  database_url: gff-mongodb2-571192913109.us-east-1.docdb-elastic.amazonaws.com
+  database_url: mongodb://fiapfood:fiapfood2023@gff-mongodb.cluster-cofsqi15xlzn.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
+
